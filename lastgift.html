@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Last Gift</title>
+   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffcccc, #ff4d4d, #990000);
+      background-size: 200% 200%;
+      animation: gradientMove 10s ease infinite;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #4d0000;
+      text-align: center;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+  h1 {
+      margin-top: 40px;
+      font-size: 3em;
+      font-family: 'Dancing Script', cursive;
+      animation: popIn 1s ease;
+    }
+
+
+  p {
+  font-size: 1.3em;
+  color:black; /* softer than pure black (#000) */
+  font-family: 'Quicksand', sans-serif;
+  margin: 10px 20px;
+  line-height: 1.6;
+}
+    input[type="text"] {
+      padding: 14px;
+      width: 80%;
+      max-width: 400px;
+      border: 3px solid #ffaad4;
+      border-radius: 25px;
+      font-size: 1.2em;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    button {
+      padding: 16px 32px;
+      background-color:#c0392b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-size: 1.3em;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      margin-top: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+      transform: scale(1.05);
+    }
+
+    #myPic, #finalBtn {
+      display: none;
+      margin-top: 40px;
+    }
+
+    #myPic {
+      max-width: 280px;
+      border-radius: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    #finalBtn {
+      background-color: #c0392b;
+      border-radius: 40px;
+      font-size: 1.3em;
+      padding: 14px 28px;
+    }
+
+    #finalBtn:hover {
+      background-color: #c0392b;
+    }
+
+    /* ✨ Sparkles */
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #fff;
+      animation: sparkle 4s infinite ease-in-out;
+      z-index: 1;
+      opacity: 0.6;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-30px) scale(1.8);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💝 This is my last gift for Hooman 🎁</h1>
+  <p>But first, answer this one last thing...</p>
+  <p><strong>What is my favorite nickname you gave me? 🥺</strong></p>
+
+  <input type="text" id="finalAnswer" placeholder="Type it here, love..." />
+  <br><br>
+  <button onclick="checkFinal()">💌 Submit</button>
+
+  <!-- Your picture (centered using flexbox) -->
+  <div id="myPicContainer" style="display: none; justify-content: center; margin-top: 30px;">
+    <img id="myPic" src="your-picture.jpeg" alt="Me">
+  </div>
+
+  <!-- Final present button -->
+  <div>
+    <button id="finalBtn" onclick="window.location.href='finalpresent.html'">
+      🎁 Open Your Last Surprise
+    </button>
+  </div>
+
+  <!-- Background Music (autoplay after correct answer) -->
+  <audio id="bgMusic" loop style="display: none;">
+    <source src="your-music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const finalCorrectAnswer = "beby"; // Replace with your correct nickname
+
+    function checkFinal() {
+      const answer = document.getElementById("finalAnswer").value.trim().toLowerCase();
+      if (answer === finalCorrectAnswer) {
+        document.getElementById("myPic").style.display = "block";
+        document.getElementById("finalBtn").style.display = "inline-block";
+
+        // 🎶 Play background music
+        const music = document.getElementById("bgMusic");
+        music.play().catch(() => {});
+      } else {
+        alert("Try again, love. You know this ❤️");
+      }
+    }
+  </script>
+
+  <!-- ✨ Sparkles -->
+  <script>
+    function createSparkle() {
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.style.left = Math.random() * 100 + "vw";
+      sparkle.style.top = Math.random() * 100 + "vh";
+      sparkle.style.animationDuration = 3 + Math.random() * 2 + "s";
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 4000);
+    }
+    setInterval(createSparkle, 150);
+  </script>
+
+</body>
+</html>

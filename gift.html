@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>A Gift Just for You</title>
+  <style>
+  body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffcccc, #ff4d4d, #990000);
+      background-size: 200% 200%;
+      animation: gradientMove 10s ease infinite;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #4d0000;
+      text-align: center;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  h1 {
+      margin-top: 40px;
+      font-size: 3em;
+      font-family: 'Dancing Script', cursive;
+      animation: popIn 1s ease;
+    }
+
+
+    .gift-box {
+      width: 200px;
+      height: 200px;
+      background: url('giftbox.png') no-repeat center/cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      animation: shake 1.5s infinite;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+
+    .message {
+      display: none;
+      margin-top: 40px;
+      max-width: 1000px;
+      padding: 30px;
+      background-color: white;
+      border-radius: 25px;
+      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.3);
+      text-align: center;
+      font-size: 1.5em;
+      line-height: 2;
+    }
+
+    .confetti, .heart {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      opacity: 0.9;
+      z-index: 999;
+    }
+
+    .confetti {
+      background-color: #ff6fa2;
+      border-radius: 50%;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    #surpriseBtn {
+      display: none;
+    }
+
+    .surprise-button {
+      margin-top: 35px;
+      padding: 16px 32px;
+      background: linear-gradient(145deg, #ff8ecf, #ff5ca8);
+      color: white;
+      border: none;
+      border-radius: 35px;
+      font-size: 1.4em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .surprise-button:hover {
+      background: linear-gradient(145deg, #ff5ca8, #ff8ecf);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Click the gift, my love 🎁</h1>
+
+  <!-- 🎁 Gift Box -->
+  <div class="gift-box" onclick="openGift()"></div>
+
+  <!-- 💌 Hidden Message -->
+  <div class="message" id="finalMessage">
+    <p>
+      Surprise! 💕<br>
+      This little gift holds all my love, just for you.<br>
+      You’ve made my world brighter, happier, and full of love.<br>
+      There’s no one else I’d rather celebrate than you —<br>
+      the one who means the world to me 💗<br>
+      I love you so much, Rinaldi. Happy Birthday 🎂💖<br>
+      — Your girl, Farah 🌹
+    </p>
+  </div>
+
+  <!-- 🔊 Hidden Voice -->
+  <audio id="voice">
+    <source src="farah_voice.aac" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 🎁 One Last Surprise Button -->
+  <div id="surpriseBtn">
+    <button onclick="window.location.href='puzzle.html'" class="surprise-button">
+      🎁 One Last Surprise...
+    </button>
+  </div>
+
+  <script>
+    function openGift() {
+      // Show message and button
+      document.getElementById("finalMessage").style.display = "block";
+      document.getElementById("surpriseBtn").style.display = "block";
+
+      // Play confetti 
+      createConfetti();
+
+      // Play voice
+      const voice = document.getElementById('voice');
+      voice.volume = 0;
+      voice.play().catch(() => {}); // Fix autoplay blocking
+      let vol = 0;
+      const fade = setInterval(() => {
+        if (vol < 1) {
+          vol += 0.05;
+          voice.volume = vol;
+        } else {
+          clearInterval(fade);
+        }
+      }, 300);
+    }
+
+    function createConfetti() {
+      for (let i = 0; i < 80; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.animationDuration = (2 + Math.random() * 3) + 's';
+        confetti.style.backgroundColor = ['#ffc0cb', '#ff6fa2', '#f8a5c2'][Math.floor(Math.random() * 3)];
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+      }
+    }
+  </script>
+</body>
+</html>
